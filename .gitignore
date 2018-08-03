@@ -1,32 +1,51 @@
-# Prerequisites
-*.d
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+using namespace std;
 
-# Precompiled Headers
-*.gch
-*.pch
+class CircularQueue{
+private :
+int *Data;
+int Size,Count,Head,Tail;
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+public:
+CircularQueue(int size =10){
+  Data = (int*)malloc(size*sizeof(int));
+  Count =Head=Tail=0;
+   Size=size;
+}
+  bool isFull(){return Count ==Size;}
+  bool isEmpty(){ return Count ==0;}
+  void insert(int x){
+    if (isFull())return;
+    Data[Tail]=x;
+    Tail=(Tail+1);
+    Count=Count+1;
 
-# Fortran module files
-*.mod
-*.smod
+  }
+  int remove(){
+    if(isEmpty())return -1;
+    int VAL=Data[Head];
+    Head=(Head+1)%Size;
+    Count =Count+1;
+  }
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+  void print(){
+    cout<<"[";
+    for(int i=0;i<Size;i++) cout<<Data[i]<< ",";
+    cout<<"]"<<"HEAD<<"<<Head<<"TAIL:"<<Tail<<"COUNT"<<Count<<"SIZE:"<<Size;
+  }
+};
+int main() {
+  CircularQueue CQ1;
+   CQ1.print();
+   CQ1.insert(1);   CQ1.print();
+   CQ1.insert(2);   CQ1.print();
+   CQ1.insert(3);   CQ1.print();
+   CQ1.insert(4);   CQ1.print();
+   CQ1.insert(5);
+   CQ1.print();
 
-# Executables
-*.exe
-*.out
-*.app
+  
+}
